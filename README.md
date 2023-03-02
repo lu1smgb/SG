@@ -1,10 +1,6 @@
-# Sistemas Gráficos
-
----
-
-## Prácticas de la asignatura Sistemas Gráficos usando [Three.js](localhost)
+## Prácticas de la asignatura Sistemas Gráficos usando [Three.js](threejs.org)
 
 ### Contenido:
 
-- **Práctica 1**: ???
-- **Práctica 2**: ???
+* **Práctica 1**: ???
+* **Práctica 2**: ???
