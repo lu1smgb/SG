@@ -1,4 +1,4 @@
-## Prácticas de la asignatura Sistemas Gráficos usando [Three.js](threejs.org)
+## Prácticas de la asignatura Sistemas Gráficos usando [Three.js](https://threejs.org)
 
 ### Contenido:
 
