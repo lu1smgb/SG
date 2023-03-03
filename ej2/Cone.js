@@ -13,13 +13,12 @@ class Cone extends THREE.Object3D {
 
     createGUI(gui, titleGui) {
         this.guiControls = {
-            visible : true,
+            visible : false,
             radius : 1,
             height : 2,
             radialSegments : 10,
 
             reset : () => {
-                this.visible = true;
                 this.guiControls.radius = 1;
                 this.guiControls.height = 2;
                 this.guiControls.radialSegments = 10;
@@ -36,8 +35,14 @@ class Cone extends THREE.Object3D {
     }
 
     update() {
-        this.children[0].visible = this.guiControls.visible;
-        this.children[0].geometry = new THREE.ConeGeometry(this.guiControls.radius, this.guiControls.height, this.guiControls.radialSegments);
+        if (this.children[0].visible != this.guiControls.visible) {
+            this.children[0].visible = this.guiControls.visible;
+        }
+        if (this.children[0].visible) {
+            this.rotation.y += 0.01;
+        }
+        this.children[0].geometry = new THREE.ConeGeometry(
+            this.guiControls.radius, this.guiControls.height, this.guiControls.radialSegments);
     }
 }
 

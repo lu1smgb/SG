@@ -27,6 +27,9 @@ class MyBox extends THREE.Object3D {
   createGUI (gui,titleGui) {
     // Controles para el tamaño, la orientación y la posición de la caja
     this.guiControls = {
+
+      visible : false,
+
       sizeX : 1.0,
       sizeY : 1.0,
       sizeZ : 1.0,
@@ -42,6 +45,9 @@ class MyBox extends THREE.Object3D {
       // Un botón para dejarlo todo en su posición inicial
       // Cuando se pulse se ejecutará esta función.
       reset : () => {
+
+        this.guiControls.visible = false;
+
         this.guiControls.sizeX = 1.0;
         this.guiControls.sizeY = 1.0;
         this.guiControls.sizeZ = 1.0;
@@ -61,6 +67,9 @@ class MyBox extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
+
+    folder.add(this.guiControls, 'visible').name('Visible: ').listen();
+
     folder.add (this.guiControls, 'sizeX', 0.1, 5.0, 0.1).name ('Tamaño X : ').listen();
     folder.add (this.guiControls, 'sizeY', 0.1, 5.0, 0.1).name ('Tamaño Y : ').listen();
     folder.add (this.guiControls, 'sizeZ', 0.1, 5.0, 0.1).name ('Tamaño Z : ').listen();
@@ -84,6 +93,14 @@ class MyBox extends THREE.Object3D {
     // Luego, la rotación en X
     // Y por último la traslación
    
+    if (this.children[0].visible != this.guiControls.visible) {
+      this.children[0].visible = this.guiControls.visible;
+    }
+
+    if (this.children[0].visible) {
+      this.rotation.y += 0.01;
+    }
+
     this.position.set (this.guiControls.posX,this.guiControls.posY,this.guiControls.posZ);
     this.rotation.set (this.guiControls.rotX,this.guiControls.rotY,this.guiControls.rotZ);
     this.scale.set (this.guiControls.sizeX,this.guiControls.sizeY,this.guiControls.sizeZ);

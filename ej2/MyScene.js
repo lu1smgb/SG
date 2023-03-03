@@ -11,6 +11,9 @@ import { Stats } from '../libs/stats.module.js'
 import { MyBox } from './MyBox.js'
 import { Cone } from './Cone.js'
 import { Cylinder } from './Cylinder.js'
+import { Sphere } from './Sphere.js'
+import { Torus } from './Torus.js'
+import { Icosahedron } from './Icosahedron.js'
  
 /// La clase fachada del modelo
 /**
@@ -49,10 +52,19 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.cono = new Cone(this.gui, "Cono");
-    this.cilindro = new Cylinder(this.gui, "Cilindro");
-    this.add (this.cono);
-    this.add (this.cilindro);
+    //! Declarar aqui los modelos
+    this.cube = new MyBox(this.gui, "Cubo");
+    this.cone = new Cone(this.gui, "Cono");
+    this.cylinder = new Cylinder(this.gui, "Cilindro");
+    this.sphere = new Sphere(this.gui, "Esfera");
+    this.torus = new Torus(this.gui, 'Donut');
+    this.icosahedron = new Icosahedron(this.gui, 'Icosaedro');
+    this.add (this.cube);
+    this.add (this.cone);
+    this.add (this.cylinder);
+    this.add (this.sphere);
+    this.add (this.torus);
+    this.add (this.icosahedron);
   }
   
   initStats() {
@@ -146,6 +158,7 @@ class MyScene extends THREE.Scene {
     folder.add(this.guiControls, 'resetCamera').name('[ Reestablecer camara ]').onChange( () => {
       this.camera.position.set(20,10,20);
       this.camera.lookAt(0,0,0);
+      // TODO: Reestablecer la rotacion de la camara
     });
     
     return gui;
@@ -228,8 +241,26 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Se actualiza el resto del modelo
-    this.cono.update();
-    this.cilindro.update();
+    //! Por cada modelo añadido, actualizar aqui!
+    // TODO: mejorar esto
+    if (this.cube.visible) {
+      this.cube.update();
+    }
+    if (this.cone.visible) {
+      this.cone.update();
+    }
+    if (this.cylinder.visible) { 
+      this.cylinder.update();
+    }
+    if (this.sphere.visible) { 
+      this.sphere.update(); 
+    }
+    if (this.torus.visible) { 
+      this.torus.update(); 
+    }
+    if (this.icosahedron.visible) { 
+      this.icosahedron.update(); 
+    }
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());

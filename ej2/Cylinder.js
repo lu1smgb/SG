@@ -13,14 +13,13 @@ class Cylinder extends THREE.Object3D {
 
     createGUI(gui, titleGui) {
         this.guiControls = {
-            visible : true,
+            visible : false,
             radiusTop : 1,
             radiusBottom : 1,
             height : 2,
             radialSegments : 10,
 
             reset : () => {
-                this.visible = true;
                 this.guiControls.radiusTop = 1;
                 this.guiControls.radiusBottom = 1;
                 this.guiControls.height = 2;
@@ -39,8 +38,14 @@ class Cylinder extends THREE.Object3D {
     }
 
     update() {
-        this.children[0].visible = this.guiControls.visible;
-        this.children[0].geometry = new THREE.CylinderGeometry(this.guiControls.radiusTop, this.guiControls.radiusBottom, this.guiControls.height, this.guiControls.radialSegments);
+        if (this.children[0].visible != this.guiControls.visible) {
+            this.children[0].visible = this.guiControls.visible;
+        }
+        if (this.children[0].visible) {
+            this.rotation.y += 0.01;
+        }
+        this.children[0].geometry = new THREE.CylinderGeometry(
+            this.guiControls.radiusTop, this.guiControls.radiusBottom, this.guiControls.height, this.guiControls.radialSegments);
     }
 }
 
