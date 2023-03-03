@@ -9,7 +9,8 @@ import { Stats } from '../libs/stats.module.js'
 // Clases de mi proyecto
 
 import { MyBox } from './MyBox.js'
-
+import { Cone } from './Cone.js'
+import { Cylinder } from './Cylinder.js'
  
 /// La clase fachada del modelo
 /**
@@ -38,7 +39,7 @@ class MyScene extends THREE.Scene {
     this.createCamera ();
     
     // Un suelo 
-    this.createGround ();
+    // this.createGround ();
     
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper (5);
@@ -48,8 +49,10 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.model = new MyBox(this.gui, "Controles de la Caja");
-    this.add (this.model);
+    this.cono = new Cone(this.gui, "Cono");
+    this.cilindro = new Cylinder(this.gui, "Cilindro");
+    this.add (this.cono);
+    this.add (this.cilindro);
   }
   
   initStats() {
@@ -122,7 +125,8 @@ class MyScene extends THREE.Scene {
     this.guiControls = {
       // En el contexto de una función   this   alude a la función
       lightIntensity : 0.5,
-      axisOnOff : true
+      axisOnOff : true,
+      resetCamera : () => {}
     }
 
     // Se crea una sección para los controles de esta clase
@@ -137,6 +141,12 @@ class MyScene extends THREE.Scene {
     folder.add (this.guiControls, 'axisOnOff')
       .name ('Mostrar ejes : ')
       .onChange ( (value) => this.setAxisVisible (value) );
+
+    // AÑADIDO POR MI: REESTABLECE LA POSICION DE LA CAMARA
+    folder.add(this.guiControls, 'resetCamera').name('[ Reestablecer camara ]').onChange( () => {
+      this.camera.position.set(20,10,20);
+      this.camera.lookAt(0,0,0);
+    });
     
     return gui;
   }
@@ -174,7 +184,7 @@ class MyScene extends THREE.Scene {
     var renderer = new THREE.WebGLRenderer();
     
     // Se establece un color de fondo en las imágenes que genera el render
-    renderer.setClearColor(new THREE.Color(0xEEEEEE), 1.0);
+    renderer.setClearColor(new THREE.Color(0x666666), 1.0);
     
     // Se establece el tamaño, se aprovecha la totalidad de la ventana del navegador
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -218,7 +228,8 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Se actualiza el resto del modelo
-    this.model.update();
+    this.cono.update();
+    this.cilindro.update();
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
