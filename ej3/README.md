@@ -1,3 +1,5 @@
-# Estudio de una aplicación básica
+# Objetos de revolución
 
-En el código viene todo bien explicado por el profesor
+Generación de perfiles para objetos por revolución usando un buffer
+
+Generación y dibujado de objetos por revolución usando la clase `LatheGeometry`

@@ -8,7 +8,7 @@ import { Stats } from '../libs/stats.module.js'
 
 // Clases de mi proyecto
 
-import { Profile } from './Profile.js'
+import { RevolutionObject } from './RevolutionObject.js'
  
 /// La clase fachada del modelo
 /**
@@ -40,14 +40,14 @@ class MyScene extends THREE.Scene {
     // this.createGround ();
     
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
-    // this.axis = new THREE.AxesHelper (5);
-    // this.add (this.axis);
+    this.axis = new THREE.AxesHelper (5);
+    this.add (this.axis);
     
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
     this.objects = [];
-    this.objects.push(new Profile());
+    this.objects.push(new RevolutionObject(this.gui, "Propiedades: "));
 
     for (let i=0; i < this.objects.length; i++) {
       this.add(this.objects[i]);
