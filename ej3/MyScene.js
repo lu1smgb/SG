@@ -8,7 +8,7 @@ import { Stats } from '../libs/stats.module.js'
 
 // Clases de mi proyecto
 
-import { Cylinder } from './Cylinder.js'
+import { Profile } from './Profile.js'
  
 /// La clase fachada del modelo
 /**
@@ -40,16 +40,18 @@ class MyScene extends THREE.Scene {
     // this.createGround ();
     
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
-    this.axis = new THREE.AxesHelper (5);
-    this.add (this.axis);
-    
+    // this.axis = new THREE.AxesHelper (5);
+    // this.add (this.axis);
     
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    //! Declarar aqui los modelos
-    this.cylinder = new Cylinder(this.gui, "Cilindro");
-    this.add (this.cylinder);
+    this.objects = [];
+    this.objects.push(new Profile());
+
+    for (let i=0; i < this.objects.length; i++) {
+      this.add(this.objects[i]);
+    }
   }
   
   initStats() {
@@ -139,7 +141,7 @@ class MyScene extends THREE.Scene {
       .name ('Mostrar ejes : ')
       .onChange ( (value) => this.setAxisVisible (value) );
 
-    // AÑADIDO POR MI: REESTABLECE LA POSICION DE LA CAMARA
+    // Reestablece la posición de la cámara
     folder.add(this.guiControls, 'resetCamera').name('[ Reestablecer camara ]').onChange( () => {
       this.camera.position.set(20,10,20);
       this.camera.lookAt(0,0,0);
@@ -227,9 +229,8 @@ class MyScene extends THREE.Scene {
     
     // Se actualiza el resto del modelo
     //! Por cada modelo añadido, actualizar aqui!
-    // TODO: mejorar esto
-    if (this.cylinder.visible) { 
-      this.cylinder.update();
+    for (let i=0; i < this.objects.length; i++) {
+      this.objects[i].update();
     }
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
