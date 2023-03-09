@@ -31,7 +31,7 @@ class Sphere extends THREE.Object3D {
         folder.add(this.guiControls, 'radius', 0.1, 5, 0.1).name('Radio: ').listen();
         folder.add(this.guiControls, 'widthSegments', 3, 30, 1).name('Res. horizontal: ').listen();
         folder.add(this.guiControls, 'heightSegments', 2, 30, 1).name('Res. vectical: ').listen();
-        folder.add(this.guiControls, 'reset').name('[ Reset ]').listen();
+        folder.add(this.guiControls, 'reset').name('[ Reset ]');
     }
 
     update() {

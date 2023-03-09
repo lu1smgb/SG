@@ -37,7 +37,7 @@ class Torus extends THREE.Object3D {
         folder.add(this.guiControls, 'radialSegments', 2, 100, 1).name('Detalle radial: ').listen();
         folder.add(this.guiControls, 'tubularSegments', 2, 100, 1).name('Detalle tubular: ').listen();
         folder.add(this.guiControls, 'arc', 1, 2 * Math.PI, 0.001).name('Longitud: ').listen();
-        folder.add(this.guiControls, 'reset').name('[ Reset ]').listen();
+        folder.add(this.guiControls, 'reset').name('[ Reset ]');
     }
 
     update() {
