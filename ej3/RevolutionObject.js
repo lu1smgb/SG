@@ -21,27 +21,27 @@ class RevolutionObject extends THREE.Object3D {
 
         // Dibujamos la linea del perfil
         var lineGeometry = new THREE.BufferGeometry();
-        var lineMaterial = new THREE.LineBasicMaterial( {color: 0xffffff});
+        var lineMaterial = new THREE.LineBasicMaterial( {color: 0xffffff} );
         lineGeometry.setFromPoints(points);
         var line = new THREE.Line (lineGeometry, lineMaterial);
         this.add(line);
         // this.add(new THREE.AxesHelper(5));
 
         // Ahora definimos el objeto por revolución
-        var objectMaterial = new THREE.MeshNormalMaterial();
+        var objectMaterial = new THREE.MeshNormalMaterial({ flatShading: true });
         var latheObject = new THREE.Mesh(new THREE.LatheGeometry(points), objectMaterial);
         this.add(latheObject);
     }
 
     createGUI(gui, titleGui) {
         this.guiControls = {
-            profile: true,
-            segments: 20,
+            profile: false,
+            segments: 10,
             phiLength: 2*Math.PI,
 
             reset : () => {
                 this.guiControls.profile = false;
-                this.guiControls.segments = 20;
+                this.guiControls.segments = 10;
                 this.guiControls.phiLength = 2 * Math.PI;
             }
         }
@@ -59,10 +59,10 @@ class RevolutionObject extends THREE.Object3D {
         this.children[0].visible = this.guiControls.profile;
 
         // Redibujamos el objeto
-        this.children[1] = new THREE.Mesh(
-            new THREE.LatheGeometry(this.points, this.guiControls.segments, 0, this.guiControls.phiLength),
-            new THREE.MeshNormalMaterial()
-        );
+        this.children[1].geometry.dispose();
+        this.children[1].geometry = new THREE.LatheGeometry(this.points, this.guiControls.segments, 0, this.guiControls.phiLength);
+
+        this.children[1].rotation.y += 0.01;
     }
 }
 
