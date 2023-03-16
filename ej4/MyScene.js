@@ -9,6 +9,7 @@ import { Stats } from '../libs/stats.module.js'
 // Clases de mi proyecto
 
 //! Importar modelos aqui
+import { ExtrudeObject } from './ExtrudeObject.js';
  
 /// La clase fachada del modelo
 /**
@@ -48,6 +49,7 @@ class MyScene extends THREE.Scene {
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
     this.objects = [];
     //! Declarar modelos aqui
+    this.objects.push(new ExtrudeObject());
     for (let i=0; i < this.objects.length; i++) {
       this.add(this.objects[i]);
     }
