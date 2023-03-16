@@ -6,18 +6,18 @@ class MyCsgObject extends THREE.Object3D {
         super();
 
         // Geometria del cilindro exterior (copa)
-        var copaGeometry = new THREE.CylinderGeometry(3,3,5)
+        var copaGeometry = new THREE.CylinderGeometry(3,3,5,20)
         copaGeometry.translate(0,3,0);
 
         // Geometria de la visera
-        var viseraGeometry = new THREE.CylinderGeometry(4,4,1);
+        var viseraGeometry = new THREE.CylinderGeometry(4,4,1,20);
 
         // Geometria de la cinta (otro cilindro)
-        var cintaGeometry = new THREE.CylinderGeometry(3.1,3.1,1);
+        var cintaGeometry = new THREE.CylinderGeometry(3.1,3.1,1,20);
         cintaGeometry.translate(0,1,0);
 
         // Geometria del cilindro que usaremos para la diferencia
-        var diffGeometry = new THREE.CylinderGeometry(2.5, 2.5, 5.5);
+        var diffGeometry = new THREE.CylinderGeometry(2.5, 2.5, 5.5,20);
         diffGeometry.translate(0,2,0);
 
         // Declaración de materiales
