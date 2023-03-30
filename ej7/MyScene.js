@@ -8,7 +8,9 @@ import { Stats } from '../libs/stats.module.js'
 
 // Clases de mi proyecto
 
-//! Importar modelos aqui
+import { PenduloRojo } from './PenduloRojo.js'
+import { PenduloAzul } from './PenduloAzul.js'
+import { PenduloDoble } from './PenduloDoble.js'
  
 /// La clase fachada del modelo
 /**
@@ -46,7 +48,9 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.objects = [];
+    this.objects = [
+      new PenduloDoble(this.gui, 'Pendulo')
+    ];
     //! Declarar modelos aqui
     for (let i=0; i < this.objects.length; i++) {
       this.add(this.objects[i]);
@@ -74,9 +78,9 @@ class MyScene extends THREE.Scene {
     //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (20, 10, 20);
+    this.camera.position.set (0, 10, 20);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,0,0);
     this.camera.lookAt(look);
