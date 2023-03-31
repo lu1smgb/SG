@@ -15,7 +15,7 @@ class Clock extends THREE.Object3D {
         this.distanciaIndicadores = 6;
         this.distanciaManecilla = 4;
 
-        this.numMarca = 0;
+        this.angulo = .0;
 
         for (let i=0; i < 12; i++) {
             var indicador = new THREE.Mesh(geomIndicador, matIndicador);
@@ -53,7 +53,18 @@ class Clock extends THREE.Object3D {
 
     update(gui, titleGui) {
 
-        // REHACER POR COMPLETO (VER TEMA DE TEORIA DE ANIMACION)
+        // Gracias :)
+        // https://stackoverflow.com/questions/946641/changing-the-speed-of-a-circular-motion
+        var delta = this.clk.getDelta();
+        this.angulo += this.guiControls.mps * delta;
+        var manecilla = this.getObjectByName('manecilla');
+
+        manecilla.position.x = this.distanciaManecilla * Math.cos(this.angulo);
+        manecilla.position.z = this.distanciaManecilla * Math.sin(this.angulo);
+
+        // Un pequeño detalle
+        manecilla.rotateX(delta);
+        manecilla.rotateY(delta);
 
     }
 }
