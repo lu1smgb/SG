@@ -12,8 +12,10 @@ class FanBlade extends THREE.Object3D {
         shape.quadraticCurveTo(-0.5,0.25,0,0);
 
         var options = {
-            steps: 2,
-            depth: 0.01
+            curveSegments: 30,
+            steps: 10,
+            depth: 0.01,
+            bevelSegments: 10
         }
         var geomBlade = new THREE.ExtrudeGeometry(shape, options);
         geomBlade.scale(size, size, size);
