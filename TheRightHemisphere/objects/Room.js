@@ -1,4 +1,5 @@
 import * as THREE from '../../libs/three.module.js'
+import * as TWEEN from '../../libs/tween.esm.js'
 import * as CSG from '../../libs/CSG-v2.js'
 
 import { Fan } from './Fan/Fan.js';
@@ -259,10 +260,10 @@ class Room extends THREE.Object3D {
         this.add(desktop);
 
         // Añadimos un foco al escritorio que vaya cambiando de vez en cuando
-        var focoAlEscritorio = new THREE.SpotLight(0xffffff, 1, 800, Math.PI / 6, 0.3, 2);
-        focoAlEscritorio.position.set(0,230,0);
-        focoAlEscritorio.target = desktop;
-        this.add(focoAlEscritorio);
+        this.focoAlEscritorio = new THREE.SpotLight(0xffaaaa, 1, 800, Math.PI / 6, 0.3, 2);
+        this.focoAlEscritorio.position.set(0,230,0);
+        this.focoAlEscritorio.target = desktop;
+        this.add(this.focoAlEscritorio);
 
         // Hojas de papel
         var hojaCalificaciones = new PaperSheet('../../imgs/hoja_calificaciones.png');
@@ -311,9 +312,31 @@ class Room extends THREE.Object3D {
         door.puzzles.push(this.simplePuzzle);
         door.puzzles.push(riddlePainting);
 
+        this.setUpAnimations();
+
+    }
+
+    setUpAnimations() {
+
+        var inicio = { intensity: 1 };
+        var fin = { intensity: 0 };
+        this.animacionLuz = new TWEEN.Tween(inicio).to(fin, 2000);
+        this.animacionLuz.easing(TWEEN.Easing.Bounce.In);
+        this.animacionLuz.onUpdate(() => {
+            this.focoAlEscritorio.intensity = inicio.intensity;
+        });
+        this.animacionLuz.onComplete(() => {
+            inicio.intensity = 1;
+        });
+        this.animacionLuz.yoyo(true);
+        this.animacionLuz.repeat(Infinity);
+        this.animacionLuz.start();
+
     }
 
     update() {
+
+        TWEEN.update();
 
         this.pickable.forEach(
             (objeto) => {
