@@ -1,3 +1,5 @@
+// Clase que modela los aspas del ventilador
+
 import * as THREE from '../../../libs/three.module.js'
 
 class FanBlade extends THREE.Object3D {

@@ -1,3 +1,5 @@
+// Clase que modela la turbina del ventilador
+
 import * as THREE from '../../../libs/three.module.js'
 import { FanBlade } from './FanBlade.js';
 

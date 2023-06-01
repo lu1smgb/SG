@@ -2,7 +2,7 @@ import * as THREE from '../../../libs/three.module.js'
 import * as CSG from '../../../libs/CSG-v2.js'
 
 class BedsideTableDrawer extends THREE.Object3D {
-    constructor(gui,titleGui) {
+    constructor(mat,gui,titleGui) {
 
         super();
 
@@ -16,18 +16,18 @@ class BedsideTableDrawer extends THREE.Object3D {
         // Eje Z: mitad de la profundidad del cajon + un poco menos del radio de la asa
         geomHandle.translate(0,6.25,19);
 
-        // TODO Placeholder
-        var mat = new THREE.MeshNormalMaterial();
+        var handlerMat = new THREE.MeshPhongMaterial({ color: 0x222222 });
 
-        var drawer = new THREE.Mesh(geomDrawer, mat);
-        var handle = new THREE.Mesh(geomHandle, undefined);
+        this.drawer = new THREE.Mesh(geomDrawer, mat);
+        this.handle = new THREE.Mesh(geomHandle, handlerMat);
         var inner = new THREE.Mesh(innerGeomDrawer, undefined)
         var csg = new CSG.CSG();
-        csg.union([drawer, handle]);
+        csg.union([this.drawer]);
         csg.subtract([inner]);
-        var mesh = csg.toMesh();
-        mesh.translateZ(2.5);
-        this.add(mesh);
+        this.mesh = csg.toMesh();
+        this.mesh.translateZ(2.5);
+        this.mesh.add(this.handle);
+        this.add(this.mesh);
 
     }
     createGui(gui, titleGui) {

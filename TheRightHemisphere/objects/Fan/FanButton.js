@@ -1,3 +1,5 @@
+// Clase que modela el boton del ventilador
+
 import * as THREE from '../../../libs/three.module.js'
 
 class FanButton extends THREE.Object3D {
@@ -8,7 +10,9 @@ class FanButton extends THREE.Object3D {
         var geomButton = new THREE.BoxGeometry(2.5,2.5,2);
         var mat = new THREE.MeshPhongMaterial({ color: color, flatShading: true });
 
-        this.add(new THREE.Mesh(geomButton, mat));
+        this.mesh = new THREE.Mesh(geomButton, mat);
+
+        this.add(this.mesh);
 
     }
     createGui(gui, titleGui) {

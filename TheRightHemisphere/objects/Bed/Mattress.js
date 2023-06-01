@@ -17,12 +17,13 @@ class Mattress extends THREE.Object3D {
         shapeMattress.quadraticCurveTo(-50,100,-45,100);
         var options = {
             depth: 20,
-            bevelThickness: 2
+            bevelThickness: 2,
+            bevelSegments: 20
         };
         var geomMattress = new THREE.ExtrudeGeometry(shapeMattress, options);
         geomMattress.rotateX(Math.PI/2);
 
-        var mat = new THREE.MeshNormalMaterial();
+        var mat = new THREE.MeshPhongMaterial({ color: 0xc9c9c9});
 
         var mattress = new THREE.Mesh(geomMattress, mat);
         mattress.translateY(22);

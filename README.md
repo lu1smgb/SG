@@ -3,4 +3,4 @@
 ### Contenido:
 
 * **Práctica 1**: Ejercicios de manejo de la librería gráfica
-* **Práctica 2**: Desarrollo de una Escape Room en parejas
+* **Práctica 2**: Desarrollo de una Escape Room en parejas (spoiler: la hago solo 😫)
